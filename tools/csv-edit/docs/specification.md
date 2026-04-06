@@ -1,7 +1,7 @@
 # `csv-edit` Application Specification
 
 ## Overview
-`csv-edit` is a terminal-based (TUI) application written in Python that allows users to edit comma-separated values (CSV) files hosted directly on GitHub. 
+`csv-edit` is a terminal-based (TUI) application written in Python that allows users to edit comma-separated values (CSV) files hosted directly on GitHub.
 
 Instead of cloning a repository, editing the file locally, committing, and pushing, `csv-edit` allows for a fluid, spreadsheet-like experience directly from the command line, and automatically handles the entire GitHub Pull Request creation workflow in the background.
 
@@ -30,7 +30,7 @@ Instead of cloning a repository, editing the file locally, committing, and pushi
 
 ## Technical Requirements
 - **Python**: `>= 3.9`
-- **Dependencies**: 
+- **Dependencies**:
   - `textual` (>= 0.52.1) - Manages the TUI rendering, layout, and event loop.
   - `PyGithub` (>= 2.1.1) - Wraps the GitHub REST API for fetching contents, creating branches, committing, and opening PRs.
 - **Excluded Dependencies**: Purposely excludes heavy data dependencies (like `pandas`) to remain lightweight. CSV parsing is handled by the Python standard library's `csv` module.
@@ -39,9 +39,15 @@ Instead of cloning a repository, editing the file locally, committing, and pushi
 | Key Sequence | Action | Description |
 | ---- | ---- | ---- |
 | `Enter` | Edit Cell | Opens the input field for the currently selected cell. Pressing `Enter` again commits the change. |
-| `c` | Copy | Copies the value of the currently selected cell to the internal clipboard. |
-| `v` | Paste | Pastes the value from the internal clipboard to the currently selected cell. |
+| `c` | Copy cell | Copies the value of the currently selected cell to the internal clipboard. |
+| `v` | Paste cell | Pastes the value from the internal clipboard to the currently selected cell. |
+| `C` | Copy Row | Copies all cell values for the current row into memory. |
+| `V` | Paste Row | Replaces all cell values in the current row with the copied row data. |
+| `D` | Delete Row | Removes the current row entirely from the dataset. |
 | `d`| Copy Down | Copies the selected cell's value down one row, moving the cursor automatically. |
-| `i` | Insert Row | Appends an empty row to the end of the data table. |
-| `Ctrl+S` | Save to GitHub | Opens the commit message prompt and begins the Pull Request creation workflow. |
+| `i` | Insert Row After | Splices a new, empty row immediately below the current active cell. |
+| `I` | Insert Column After | Opens prompt for column name, splices an empty padded column immediately after active cell. |
+| `a` | Append Row | Appends a new, empty row at the bottom of the table. |
+| `A` | Append Column | Opens prompt for column name, then appends it to the far right. |
+| `Ctrl+S` | Save/ Commit to GitHub and quit | Opens the commit message prompt, begins the PR creation workflow, and exits upon success. |
 | `q` | Quit | Exits the application without saving. |
